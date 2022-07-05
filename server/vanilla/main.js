@@ -3,7 +3,7 @@
 const createLight = () => {
   const light = document.createElement("img");
   light.className = "light";
-  light.src = "./light.png";
+  light.src = "/img/light.png";
 
   for (let i = 0; i < 100; i++) {
     SetLight(light)
@@ -25,7 +25,7 @@ const SetLight = (original) => {
       this.parentNode.removeChild(this);
       const light = document.createElement("img");
       light.className = "light";
-      light.src = "./light.png";
+      light.src = "/img/light.png";
       SetLight(light);
     },
     false
@@ -46,7 +46,7 @@ window.addEventListener("load", () => {
 
   // 笹の取得・絵画
   const sasa = new Image();
-  sasa.src = "./sasa.png";
+  sasa.src = "/img/sasa.png";
   sasa.onload = () => {
     ctx.drawImage(sasa, 0, 0, canvas.width, canvas.height);
   };
