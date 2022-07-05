@@ -1,0 +1,65 @@
+body {
+  text-align: center;
+  background-color: #000029;
+  color: lemonchiffon;
+}
+
+#version {
+  margin-top: auto;
+}
+
+#title {
+  margin: auto;
+  font-family: 'Yuji Syuku', serif;
+  padding: 0%;
+}
+
+/* ANIMATION */
+.light {
+  animation: falling 8s linear,light 8s;
+  display: inline-block;
+  position: fixed;
+  top: -1em;
+  z-index: 1000;
+}
+
+@keyframes falling {
+  0% {
+      transform:translateY(0)
+  }
+  100% {
+      transform:translateY(calc(100vh + 1em))
+  }
+}
+
+@keyframes light {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width:500px) {
+  #title {
+    font-size: 40px;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width:501px) {
+  #title {
+    font-size: 50px;
+    margin: auto;
+  }
+}
