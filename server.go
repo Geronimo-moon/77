@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"os"
 	"math/rand"
+	"time"
 )
 
 func redirectHandler(w http.ResponseWriter, r *http.Request) {
