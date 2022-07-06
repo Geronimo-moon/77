@@ -1,13 +1,26 @@
 package main
 
 import (
+	"database/sql"
+
+	_"github.com/lib/pq"
+
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 )
 
 func formWriter(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("wishtext", r.FormValue("wishtext"))
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+			log.Fatalf("Error opening database: %q", err)
+	}
+	defer db.Close()
+
+	
+
 }
 
 func main() {
