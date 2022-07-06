@@ -6,7 +6,7 @@ const createLight = () => {
   light.src = "/img/light.png";
 
   for (let i = 0; i < 100; i++) {
-    SetLight(light)
+    SetLight(light);
   }
 };
 
@@ -21,7 +21,7 @@ const SetLight = (original) => {
 
   clone.addEventListener(
     "animationend",
-    function() {
+    function () {
       this.parentNode.removeChild(this);
       const light = document.createElement("img");
       light.className = "light";
@@ -52,4 +52,32 @@ window.addEventListener("load", () => {
   };
 
   createLight();
+
+  
+
+  // 入力フォームの生成
+  const divWrite = document.getElementById("write");
+
+  divWrite.addEventListener("click", () => {
+    if (divWrite.lastElementChild) return;
+    const form = document.createElement("form");
+    form.action = "/send";
+    form.method = "POST";
+    form.name = "wish";
+
+    const textarea = document.createElement("textarea");
+    textarea.className = "paper";
+    textarea.placeholder = "ここに入力";
+    textarea.id = "wishtext";
+    textarea.name = "wishtext"
+    form.appendChild(textarea);
+
+    divWrite.appendChild(form);
+
+    const submit = document.createElement("button");
+    submit.className = "submit";
+    submit.type = 'submit'
+    submit.textContent = "送信";
+    form.appendChild(submit);
+  });
 });
