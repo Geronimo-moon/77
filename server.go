@@ -16,6 +16,8 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	http.HandleFunc("/", redirectHandler)
+
 	imgFs := http.FileServer(http.Dir("static/img"))
 	http.Handle("/img", imgFs)
 
@@ -24,8 +26,6 @@ func main() {
 
 	reactFs := http.FileServer(http.Dir("static/react"))
 	http.Handle("/react", reactFs)
-
-	http.HandleFunc("/", redirectHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
