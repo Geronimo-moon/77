@@ -6,7 +6,9 @@
   <body>
     <script>
       const url = ['/react','/vanilla']
-      location.href(url[Math.floor(2*Math.random())])
+      const num = Math.floor(2*Math.random())
+      alert(url[num])
+      location.href(url[num])
     </script>
   </body>
 </html>
