@@ -47,13 +47,51 @@ window.addEventListener("load", () => {
   // 笹の取得・絵画
   const sasa = new Image();
   sasa.src = "/img/sasa.png";
+
+  let grids = [];
+
   sasa.onload = () => {
     ctx.drawImage(sasa, 0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.fillStyle = "rgb(255, 142, 198, 0.85)";
+    for (i = 0; i < 10; i++) {
+      const grid = [
+        canvas.width / 5 + 7 * Math.floor((Math.random() * canvas.width) / 10),
+        canvas.width / 5 + 7 * Math.floor((Math.random() * canvas.width) / 10),
+      ];
+      ctx.fillRect(grid[0], grid[1], 15, 30);
+      grids.push(grid);
+    }
   };
 
-  createLight();
+  canvas.addEventListener("click", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const point = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
 
-  
+    for (let i = 0; i < 10; i++) {
+      if (
+        grids[i][0] <= point.x &&
+        grids[i][0] + 15 >= point.x &&
+        grids[i][1] <= point.y &&
+        grids[i][1] + 30 >= point.y
+      ) {
+        // alert("OK");
+        const request = new XMLHttpRequest();
+        request.open("POST", "/get", true);
+        request.onload = function () {
+          let data = this.response;
+          alert(data);
+        };
+        request.send();
+      }
+    }
+  });
+
+  createLight();
 
   // 入力フォームの生成
   const divWrite = document.getElementById("write");
@@ -69,15 +107,16 @@ window.addEventListener("load", () => {
     textarea.className = "paper";
     textarea.placeholder = "ここに入力";
     textarea.id = "wishtext";
-    textarea.name = "wishtext"
     form.appendChild(textarea);
 
     divWrite.appendChild(form);
 
-    const submit = document.createElement("button");
+    const submit = document.createElement("div");
     submit.className = "submit";
-    submit.type = 'submit'
     submit.textContent = "送信";
-    form.appendChild(submit);
+    submit.addEventListener("click", () => {
+      document.wish.submit();
+    });
+    divWrite.appendChild(submit);
   });
 });
