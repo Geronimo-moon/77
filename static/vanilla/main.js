@@ -114,9 +114,9 @@ window.addEventListener("load", () => {
     const submit = document.createElement("div");
     submit.className = "submit";
     submit.textContent = "送信";
-    submit.addEventListener("click", () => {
-      document.wish.submit();
-    });
+    // submit.addEventListener("click", () => {
+    //   document.wish.submit();
+    // });
     divWrite.appendChild(submit);
   });
 });
