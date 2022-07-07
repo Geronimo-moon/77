@@ -17,12 +17,13 @@ type WISHES struct {
 }
 
 func formGetter(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("wishtext", r.FormValue("wishtext"))
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 			log.Fatalf("Error opening database: %q", err)
 	}
 	defer db.Close()
+
+
 }
 
 func formWriter(w http.ResponseWriter, r *http.Request) {
@@ -46,6 +47,25 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	rows, err := db.Query("SELECT * FROM wishes_with_text")
+	if err != nil {
+		log.Println(err)
+	}
+	defer rows.Close()
+
+	var u WISHES
+	for rows.Next() {
+		err := rows.Scan(&u.ID, &u.Text)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("ID: %s, Text: %s\n", u.ID, u.Text)
+	}
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", fs)
 
