@@ -53,7 +53,7 @@ func main() {
 	}
 	defer db.Close()
 
-	var rows
+	var rows interface{}
 	rows, err = db.Query("SELECT * FROM wishes_with_text")
 	if err != nil {
 		log.Println(err)
