@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"math/rand"
 )
 
 type WISHES struct {
@@ -23,7 +24,31 @@ func formGetter(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
+	rows, err := db.Query("SELECT * FROM wishes_with_text")
+	if err != nil {
+		log.Fatalf("Error opening database: %q", err)
+	}
+	defer rows.Close()
 
+	var wlist WISHES
+	var wish []string
+	for rows.Next() {
+		err := rows.Scan(&wlist.ID, &wlist.Text)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		wish = append(wish,wlist.Text)
+	}
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	rand.Seed(time.Now().UnixNano())
+	randIndex := wish[rand.Intn(len(wish))]
+
+	fmt.Fprintf(w, randIndex)
 }
 
 func formWriter(w http.ResponseWriter, r *http.Request) {
@@ -51,13 +76,13 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rows.Close()
 
-	var u WISHES
+	var wlist WISHES
 	for rows.Next() {
-		err := rows.Scan(&u.ID, &u.Text)
+		err := rows.Scan(&wlist.ID, &wlist.Text)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("ID: %s, Text: %s\n", u.ID, u.Text)
+		fmt.Printf("ID: %s, Text: %s\n", wlist.ID, wlist.Text)
 	}
 	err = rows.Err()
 	if err != nil {
