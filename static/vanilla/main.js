@@ -84,7 +84,7 @@ window.addEventListener("load", () => {
         request.open("POST", "/get", true);
         request.onload = function () {
           let data = this.response;
-          alert(data);
+          alert("「"+data+"」と書かれているようだ。");
         };
         request.send();
       }
