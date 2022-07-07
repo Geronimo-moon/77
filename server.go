@@ -47,7 +47,13 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	rows, err := db.Query("SELECT * FROM wishes_with_text")
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+			log.Fatalf("Error opening database: %q", err)
+	}
+	defer db.Close()
+
+	rows, err = .Query("SELECT * FROM wishes_with_text")
 	if err != nil {
 		log.Println(err)
 	}
