@@ -43,16 +43,6 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 
 	_, err = db.Exec("INSERT INTO wishes_with_text (text) VALUES (" + r.FormValue("wishtext") + ");")
 
-	http.Redirect(w, r, "/", 301)
-}
-
-func main() {
-	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
-	if err != nil {
-			log.Fatalf("Error opening database: %q", err)
-	}
-	defer db.Close()
-
 	rows, err := db.Query("SELECT * FROM wishes_with_text")
 	if err != nil {
 		log.Println(err)
@@ -72,6 +62,10 @@ func main() {
 		log.Fatal(err)
 	}
 
+	http.Redirect(w, r, "/", 301)
+}
+
+func main() {
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", fs)
 
