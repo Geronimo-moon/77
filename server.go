@@ -43,6 +43,8 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 
 	_, err = db.Exec("INSERT INTO wishes_with_text (text) VALUES (" + r.FormValue("wishtext") + ");")
 
+	fmt.Println("wish: "+r.FormValue("wishtext"))
+
 	rows, err := db.Query("SELECT * FROM wishes_with_text")
 	if err != nil {
 		log.Println(err)
