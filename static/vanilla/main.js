@@ -107,6 +107,7 @@ window.addEventListener("load", () => {
     textarea.className = "paper";
     textarea.placeholder = "ここに入力";
     textarea.id = "wishtext";
+    textarea.name = "wishtext";
     form.appendChild(textarea);
 
     divWrite.appendChild(form);
