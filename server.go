@@ -19,7 +19,9 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	
+	if err := db.Ping(); err != nil {
+		log.Fatal("PingError: ", err)
+	}
 
 }
 
