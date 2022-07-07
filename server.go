@@ -21,6 +21,8 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 
 	if err := db.Ping(); err != nil {
 		log.Fatal("PingError: ", err)
+	}else{
+		fmt.Println("Successed to connect %q", os.Getenv("DATABASE_URL"))
 	}
 
 }
