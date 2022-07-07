@@ -32,17 +32,15 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	_, err := db.Exec(`CREATE TABLE IF NOT EXISTS wishes_with_text (
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS wishes_with_text (
 			id SERIAL NOT NULL PRIMARY KEY,
-			text TEXT NOT NULL
-		);`
-	)
+			text TEXT NOT NULL);`)
 
 	if err != nil {
 		log.Fatalf("Fatal error has occured: %q", err)
 	}
 
-	_, err := db.Exec("INSERT INTO wishes_with_text (text) VALUES (" + r.FormValue("wishtext") + ");")
+	_, err = db.Exec("INSERT INTO wishes_with_text (text) VALUES (" + r.FormValue("wishtext") + ");")
 
 	http.Redirect(w, r, "/", 301)
 }
