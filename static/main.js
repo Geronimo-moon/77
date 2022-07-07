@@ -60,7 +60,7 @@ window.addEventListener("load", () => {
         canvas.width / 5 + 7 * Math.floor((Math.random() * canvas.width) / 10),
         canvas.width / 5 + 7 * Math.floor((Math.random() * canvas.width) / 10),
       ];
-      ctx.fillRect(grid[0], grid[1], 15, 30);
+      ctx.fillRect(grid[0], grid[1], 20, 45);
       grids.push(grid);
     }
   };
@@ -75,9 +75,9 @@ window.addEventListener("load", () => {
     for (let i = 0; i < 10; i++) {
       if (
         grids[i][0] <= point.x &&
-        grids[i][0] + 15 >= point.x &&
+        grids[i][0] + 20 >= point.x &&
         grids[i][1] <= point.y &&
-        grids[i][1] + 30 >= point.y
+        grids[i][1] + 45 >= point.y
       ) {
         // alert("OK");
         const request = new XMLHttpRequest();
