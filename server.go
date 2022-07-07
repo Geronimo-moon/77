@@ -53,7 +53,7 @@ func main() {
 	}
 	defer db.Close()
 
-	rows, err = .Query("SELECT * FROM wishes_with_text")
+	rows, err = db.Query("SELECT * FROM wishes_with_text")
 	if err != nil {
 		log.Println(err)
 	}
