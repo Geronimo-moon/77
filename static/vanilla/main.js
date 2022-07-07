@@ -111,12 +111,10 @@ window.addEventListener("load", () => {
 
     divWrite.appendChild(form);
 
-    const submit = document.createElement("div");
+    const submit = document.createElement("button");
     submit.className = "submit";
+    submit.type = 'submit'
     submit.textContent = "送信";
-    // submit.addEventListener("click", () => {
-    //   document.wish.submit();
-    // });
-    divWrite.appendChild(submit);
+    form.appendChild(submit);
   });
 });
