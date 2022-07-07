@@ -41,7 +41,7 @@ func formWriter(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Fatal error has occured: %q", err)
 	}
 
-	_, err = db.Exec("INSERT INTO wishes_with_text (text) VALUES (" + r.FormValue("wishtext") + ");")
+	_, err = db.Exec("INSERT INTO wishes_with_text (text) VALUES ('" + r.FormValue("wishtext") + "');")
 
 	fmt.Println("wish: "+r.FormValue("wishtext"))
 
